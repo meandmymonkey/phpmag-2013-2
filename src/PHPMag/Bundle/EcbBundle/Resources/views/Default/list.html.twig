@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for currency, rate in rates %}
+        <tr>
+            <td>{{ currency }}</td>
+            <td>{{ rate }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

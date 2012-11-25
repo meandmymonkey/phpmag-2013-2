@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="php_mag_ecb.httpclient.class">Guzzle\Http\Client</parameter>
+        <parameter key="php_mag_ecb.adapter.class">PHPMag\Bundle\EcbBundle\Ecb\Adapter</parameter>
+        <parameter key="php_mag_ecb.parser.class">PHPMag\Bundle\EcbBundle\Ecb\Parser</parameter>
+        <parameter key="php_mag_ecb.rates.class">PHPMag\Bundle\EcbBundle\Ecb\ExchangeRates</parameter>
+    </parameters>
+
+    <services>
+        <service id="php_mag_ecb.httpclient" class="%php_mag_ecb.httpclient.class%" public="false">
+            <argument type="constant">null</argument>
+            <argument type="collection">
+                <argument type="collection" key="curl.options">
+                    <!-- \CURLOPT_TIMEOUT == 13 -->
+                    <argument key="13">%php_mag_ecb.httpclient.timeout%</argument>
+                </argument>
+            </argument>
+        </service>
+        <service id="php_mag_ecb.adapter" class="%php_mag_ecb.adapter.class%" public="false">
+            <argument type="service" id="php_mag_ecb.httpclient" />
+            <argument>%php_mag_ecb.adapter.endpoint%</argument>
+        </service>
+        <service id="php_mag_ecb.parser" class="%php_mag_ecb.parser.class%" public="false" />
+        <service id="php_mag_ecb.rates" class="%php_mag_ecb.rates.class%" public="false">
+            <argument type="service" id="php_mag_ecb.adapter" />
+            <argument type="service" id="php_mag_ecb.parser" />
+        </service>
+        <service id="ecb.rates" alias="php_mag_ecb.rates" />
+    </services>
+
+</container>

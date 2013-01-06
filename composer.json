@@ -18,7 +18,8 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "guzzle/http": "3.0.*"
+        "guzzle/http": "3.0.*",
+        "guzzle/plugin-backoff": "3.0.*"
     },
     "scripts": {
         "post-install-cmd": [

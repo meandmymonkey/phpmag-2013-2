@@ -12,3 +12,6 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+parameters:
+    php_mag_ecb.adapter.class: PHPMag\Bundle\EcbBundle\Ecb\MockAdapter
